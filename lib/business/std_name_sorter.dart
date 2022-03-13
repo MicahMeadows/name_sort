@@ -51,7 +51,7 @@ class StdNameSorter implements IApp {
   }
 
   void _displayInputStrategyOptionsMenu() {
-    stdout.write('\n~ How would you like to input the names? (Chose #)\n');
+    stdout.write('\n~ How would you like to input the names? (Choose #)\n');
     inputStrategies.asMap().forEach((idx, element) {
       stdout.write('${idx + 1}. ${inputStrategies[idx].description}\n');
     });
@@ -72,7 +72,7 @@ class StdNameSorter implements IApp {
 
   void _displayOutputStrategyOptionsMenu() {
     stdout.write(
-        '\n~ Where would you like to view the sorting results? (Chose #)\n');
+        '\n~ Where would you like to view the sorting results? (Choose #)\n');
     outputStrategies.asMap().forEach((idx, element) {
       stdout.write('${idx + 1}. ${outputStrategies[idx].description}\n');
     });
