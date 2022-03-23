@@ -5,8 +5,8 @@
 /// [subOrderAlphabetical] if true, sub order will be aA -> zZ else, will be zZ -> aA
 List<String> sortStrings(
   List<String> unsortedStrings, {
-  required bool ascendingSize,
-  required bool subOrderAlphabetical,
+  bool ascendingSize = true,
+  bool subOrderAlphabetical = true,
 }) {
   // Group all strings that have the same length into sub lists
   Map<int, List<String>> lengthGroups = {};
@@ -20,11 +20,23 @@ List<String> sortStrings(
 
   // sort lengths of sub lists
   var _sortedStringLengths = lengthGroups.keys.toList()
-    ..sort(((a, b) => a.compareTo(b)));
+    ..sort((a, b) {
+      if (ascendingSize) {
+        return a.compareTo(b);
+      } else {
+        return b.compareTo(a);
+      }
+    });
 
   // sort sub lists in alphabetical order
   for (var _stringLength in _sortedStringLengths) {
-    lengthGroups[_stringLength]!.sort(((a, b) => a.compareTo(b)));
+    lengthGroups[_stringLength]!.sort((a, b) {
+      if (subOrderAlphabetical) {
+        return a.compareTo(b);
+      } else {
+        return b.compareTo(a);
+      }
+    });
   }
 
   // spread sorted sub lists into main list

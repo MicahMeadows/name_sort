@@ -60,7 +60,7 @@ class FileOutputStrategy implements IListOutputStrategy {
 
   void _notifyUserOfCreation(String path) {
     stdout.write("""~ Sorted and stored text in file created at '$path'
-~ run '\$ vim '$path' to view it.\n""");
+~ run '\$ cat '$path' to view it.\n""");
   }
 
   String _generateResultOutputString(List<Object> objects) {
