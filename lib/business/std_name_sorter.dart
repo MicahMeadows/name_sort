@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:name_sort/business/i_app.dart';
-import 'package:name_sort/business/string_sorting.dart';
+import 'package:name_sort/business/sorting/i_sort_strategy.dart';
+import 'package:name_sort/business/sorting/string_sorting.dart';
 import 'package:name_sort/input/i_name_input_strategy.dart';
 import 'package:name_sort/output/i_list_output_strategy.dart';
 
@@ -12,29 +13,37 @@ class StdNameSorter implements IApp {
   /// Types of output allowed
   final List<IListOutputStrategy> outputStrategies;
 
+  /// Types of sorting allowed
+  final List<INameSortStrategy> sortStrategies;
+
   /// A sorting app using std console
   const StdNameSorter({
     required this.inputStrategies,
     required this.outputStrategies,
+    required this.sortStrategies,
   });
 
   @override
   void run() async {
-    var _inputStrategy = _promptUserForInputStrategy();
+    final _inputStrategy = _promptUserForInputStrategy();
 
     var _namesToSort = await _inputStrategy.getAllNames();
 
-    _namesToSort.removeWhere((name) => name.isEmpty);
+    _namesToSort = filterInvalidInput(_namesToSort);
 
-    var _sortedNames = sortStrings(
-      _namesToSort,
-      ascendingSize: true,
-      subOrderAlphabetical: true,
-    );
+    final _sortStrategy = _promptUserForSortStrategy();
 
-    var _outputStrategy = _promptUserForOutputStrategy();
+    final _sortedNames = _sortStrategy.sort(_namesToSort);
+
+    final _outputStrategy = _promptUserForOutputStrategy();
 
     _outputStrategy.output(_sortedNames);
+  }
+
+  List<String> filterInvalidInput(List<String> origional) {
+    var filters = [...origional];
+    filters.removeWhere((name) => name.isEmpty);
+    return filters;
   }
 
   INameInputStrategy _promptUserForInputStrategy() {
@@ -87,5 +96,24 @@ class StdNameSorter implements IApp {
     } catch (e) {
       return null;
     }
+  }
+
+  INameSortStrategy _promptUserForSortStrategy() {
+    _displaySortStrategyOptionsMenu();
+    var _userChoice = _getUserNumberInput();
+    try {
+      return sortStrategies[_userChoice! - 1];
+    } catch (e) {
+      stdout.write('Invalid response...\n');
+      return _promptUserForSortStrategy();
+    }
+  }
+
+  void _displaySortStrategyOptionsMenu() {
+    stdout.write('\n~ How would you like to sort? (Choose #)\n');
+    sortStrategies.asMap().forEach((idx, element) {
+      stdout.write('${idx + 1}. ${sortStrategies[idx].description}\n');
+    });
+    stdout.write('<- ');
   }
 }
