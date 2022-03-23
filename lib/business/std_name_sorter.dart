@@ -46,7 +46,11 @@ class StdNameSorter implements IApp {
   }
 
   INameInputStrategy _promptUserForInputStrategy() {
-    _displayInputStrategyOptionsMenu();
+    _buildOptionsMenu(
+      promptMessage: '~ How would you like to receive input?',
+      numItems: inputStrategies.length,
+      optionBuilder: (idx) => inputStrategies[idx].description,
+    );
 
     var _userChoice = _getUserNumberInput();
 
@@ -64,16 +68,12 @@ class StdNameSorter implements IApp {
     }
   }
 
-  void _displayInputStrategyOptionsMenu() {
-    _buildOptionsMenu(
-      promptMessage: '~ How would you like to receive input?',
-      numItems: inputStrategies.length,
-      optionBuilder: (idx) => inputStrategies[idx].description,
-    );
-  }
-
   IListOutputStrategy _promptUserForOutputStrategy() {
-    _displayOutputStrategyOptionsMenu();
+    _buildOptionsMenu(
+      promptMessage: '~ Where would you like to view the sorting results?',
+      numItems: outputStrategies.length,
+      optionBuilder: (idx) => outputStrategies[idx].description,
+    );
 
     var _userChoice = _getUserNumberInput();
 
@@ -91,16 +91,12 @@ class StdNameSorter implements IApp {
     }
   }
 
-  void _displayOutputStrategyOptionsMenu() {
-    _buildOptionsMenu(
-      promptMessage: '~ Where would you like to view the sorting results?',
-      numItems: outputStrategies.length,
-      optionBuilder: (idx) => outputStrategies[idx].description,
-    );
-  }
-
   INameSortStrategy _promptUserForSortStrategy() {
-    _displaySortStrategyOptionsMenu();
+    _buildOptionsMenu(
+      promptMessage: '~ How would you like to sort?',
+      numItems: sortStrategies.length,
+      optionBuilder: (idx) => sortStrategies[idx].description,
+    );
 
     var _userChoice = _getUserNumberInput();
 
@@ -116,14 +112,6 @@ class StdNameSorter implements IApp {
       stdout.write('Invalid response...\n');
       return null;
     }
-  }
-
-  void _displaySortStrategyOptionsMenu() {
-    _buildOptionsMenu(
-      promptMessage: '~ How would you like to sort?',
-      numItems: sortStrategies.length,
-      optionBuilder: (idx) => sortStrategies[idx].description,
-    );
   }
 
   void _buildOptionsMenu({
