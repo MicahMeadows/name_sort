@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:name_sort/business/i_app.dart';
 import 'package:name_sort/business/sorting/i_sort_strategy.dart';
-import 'package:name_sort/business/sorting/string_sorting.dart';
 import 'package:name_sort/input/i_name_input_strategy.dart';
 import 'package:name_sort/output/i_list_output_strategy.dart';
 
@@ -49,71 +48,105 @@ class StdNameSorter implements IApp {
   INameInputStrategy _promptUserForInputStrategy() {
     _displayInputStrategyOptionsMenu();
 
-    // // Get user input and determine strategy to use
     var _userChoice = _getUserNumberInput();
+
+    final chosenStrategy = getInputStrategyFromChoice(_userChoice);
+
+    return chosenStrategy ?? _promptUserForInputStrategy();
+  }
+
+  INameInputStrategy? getInputStrategyFromChoice(int userChoice) {
     try {
-      return inputStrategies[_userChoice! - 1];
+      return inputStrategies[userChoice - 1];
     } catch (e) {
       stdout.write('Invalid response...\n');
-      return _promptUserForInputStrategy();
+      return null;
     }
   }
 
   void _displayInputStrategyOptionsMenu() {
-    stdout.write('\n~ How would you like to input the names? (Choose #)\n');
-    inputStrategies.asMap().forEach((idx, element) {
-      stdout.write('${idx + 1}. ${inputStrategies[idx].description}\n');
-    });
-    stdout.write('<- ');
+    _buildOptionsMenu(
+      promptMessage: '~ How would you like to receive input?',
+      numItems: inputStrategies.length,
+      optionBuilder: (idx) => inputStrategies[idx].description,
+    );
   }
 
   IListOutputStrategy _promptUserForOutputStrategy() {
     _displayOutputStrategyOptionsMenu();
 
     var _userChoice = _getUserNumberInput();
+
+    final _chosenStrategy = _getOutputStrategyFromChoice(_userChoice);
+
+    return _chosenStrategy ?? _promptUserForOutputStrategy();
+  }
+
+  IListOutputStrategy? _getOutputStrategyFromChoice(int userChoice) {
     try {
-      return outputStrategies[_userChoice! - 1];
+      return outputStrategies[userChoice - 1];
     } catch (e) {
       stdout.write('Invalid response...\n');
-      return _promptUserForOutputStrategy();
+      return null;
     }
   }
 
   void _displayOutputStrategyOptionsMenu() {
-    stdout.write(
-        '\n~ Where would you like to view the sorting results? (Choose #)\n');
-    outputStrategies.asMap().forEach((idx, element) {
-      stdout.write('${idx + 1}. ${outputStrategies[idx].description}\n');
-    });
+    _buildOptionsMenu(
+      promptMessage: '~ Where would you like to view the sorting results?',
+      numItems: outputStrategies.length,
+      optionBuilder: (idx) => outputStrategies[idx].description,
+    );
+  }
+
+  INameSortStrategy _promptUserForSortStrategy() {
+    _displaySortStrategyOptionsMenu();
+
+    var _userChoice = _getUserNumberInput();
+
+    final _chosenStrategy = _getSortStrategyFromChoice(_userChoice);
+
+    return _chosenStrategy ?? _promptUserForSortStrategy();
+  }
+
+  INameSortStrategy? _getSortStrategyFromChoice(int userChoice) {
+    try {
+      return sortStrategies[userChoice - 1];
+    } catch (e) {
+      stdout.write('Invalid response...\n');
+      return null;
+    }
+  }
+
+  void _displaySortStrategyOptionsMenu() {
+    _buildOptionsMenu(
+      promptMessage: '~ How would you like to sort?',
+      numItems: sortStrategies.length,
+      optionBuilder: (idx) => sortStrategies[idx].description,
+    );
+  }
+
+  void _buildOptionsMenu({
+    required String promptMessage,
+    required int numItems,
+    required String Function(int idx) optionBuilder,
+  }) {
+    stdout.write('\n$promptMessage (Choose #)\n');
+    for (int i = 0; i < numItems; i++) {
+      stdout.write('${i + 1}. ${optionBuilder(i)}\n');
+    }
     stdout.write('<- ');
   }
 
-  int? _getUserNumberInput() {
+  int _getUserNumberInput() {
     var userResponse = stdin.readLineSync()?.toLowerCase();
     try {
       var userResponseValue = int.parse(userResponse!);
       return userResponseValue;
     } catch (e) {
-      return null;
+      // return null;
+      print('Invalid response... try again.');
+      return _getUserNumberInput();
     }
-  }
-
-  INameSortStrategy _promptUserForSortStrategy() {
-    _displaySortStrategyOptionsMenu();
-    var _userChoice = _getUserNumberInput();
-    try {
-      return sortStrategies[_userChoice! - 1];
-    } catch (e) {
-      stdout.write('Invalid response...\n');
-      return _promptUserForSortStrategy();
-    }
-  }
-
-  void _displaySortStrategyOptionsMenu() {
-    stdout.write('\n~ How would you like to sort? (Choose #)\n');
-    sortStrategies.asMap().forEach((idx, element) {
-      stdout.write('${idx + 1}. ${sortStrategies[idx].description}\n');
-    });
-    stdout.write('<- ');
   }
 }
