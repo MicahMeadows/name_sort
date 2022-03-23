@@ -1,9 +1,11 @@
-# CSC 499 Homework 1
+# CSC 499 - Alex Assignments
 
 ## Assignment
-Write a command-line
-program to sort the contents of a file in ascending order first by the length of the name, then
-alphabetically.
+Write a command-line based program to sort the contents of a file.
+
+#### __Options:__
+1. Normal (Sort by largest length, the alphabetical)
+2. Reversed (Sort by smallest length, then reversed alphabetical)
 
 ---
 
@@ -67,7 +69,21 @@ alphabetically.
 
 ---
 
-### __PART 4__ ___(Optional):__ Changing names list_
+### ___PART 4:__ Using the program_
+After running the program you will face a few menus.
+1. __Select the type of input.__
+   * _Standard input_ (this will allow you to write your own list to sort)
+   * _Data from file_ (this will take data from the file defined in the repository, defaults to 'Sort Me.txt' in assets folder)
+2. __Select sort type.__
+   * _Normal_ (This will first sort by shortest word, then alphabetically)
+   * _Reversed_ (This will first sort by longest word, then reverse alphabetically)
+3. __Select the type of output.__
+   * _Standard output_ (This will output to the command line)
+   * _Generated file_ (This will output to the results file. If there is no results file, one will be made. There will be an id appended to the end of the file. The command line will tell you which file was generated.)
+
+---
+
+### __PART 5__ ___(Optional):__ Changing names list_
  - change list of names by either changing contents of 'asset/Sort Me.txt'
    or replacing file and make sure to update the FileRepository path in 'name_sort.dart' 
    if the name of the new file is different. then recompile or re run in dart vm
