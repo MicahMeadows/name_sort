@@ -4,7 +4,7 @@
 Write a command-line based program to sort the contents of a file.
 
 #### __Options:__
-1. Normal (Sort by largest length, the alphabetical)
+1. Normal (Sort by largest length, then alphabetical)
 2. Reversed (Sort by smallest length, then reversed alphabetical)
 
 ---
@@ -13,7 +13,8 @@ Write a command-line based program to sort the contents of a file.
 - Implement a command line application.
 - It must run on linux.
 - It must take input of a list of names from files or stdin
-- It must sort these names, first by size ascending, second in alphabetical order
+- It must be able to sort these names, first by size ascending, second in alphabetical order
+- It must be able to sort these names, first by smallest size, second by reverse alphabetical order
 - It must output a sorted list of names to std out or a file
 
 ---
