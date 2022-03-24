@@ -1,4 +1,4 @@
 abstract class INameInputStrategy {
-  abstract String description;
+  abstract final String description;
   Future<List<String>> getAllNames();
 }

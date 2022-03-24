@@ -13,7 +13,7 @@ class StdNameSorter implements IApp {
   final List<IListOutputStrategy> outputStrategies;
 
   /// Types of sorting allowed
-  final List<INameSortStrategy> sortStrategies;
+  final List<ISortStrategy> sortStrategies;
 
   /// A sorting app using std console
   const StdNameSorter({
@@ -52,7 +52,7 @@ class StdNameSorter implements IApp {
       optionBuilder: (idx) => inputStrategies[idx].description,
     );
 
-    var _userChoice = _getUserNumberInput();
+    final _userChoice = _getUserNumberInput();
 
     final chosenStrategy = getInputStrategyFromChoice(_userChoice);
 
@@ -75,14 +75,14 @@ class StdNameSorter implements IApp {
       optionBuilder: (idx) => outputStrategies[idx].description,
     );
 
-    var _userChoice = _getUserNumberInput();
+    final _userChoice = _getUserNumberInput();
 
-    final _chosenStrategy = _getOutputStrategyFromChoice(_userChoice);
+    final _chosenStrategy = getOutputStrategyFromChoice(_userChoice);
 
     return _chosenStrategy ?? _promptUserForOutputStrategy();
   }
 
-  IListOutputStrategy? _getOutputStrategyFromChoice(int userChoice) {
+  IListOutputStrategy? getOutputStrategyFromChoice(int userChoice) {
     try {
       return outputStrategies[userChoice - 1];
     } catch (e) {
@@ -91,21 +91,21 @@ class StdNameSorter implements IApp {
     }
   }
 
-  INameSortStrategy _promptUserForSortStrategy() {
+  ISortStrategy _promptUserForSortStrategy() {
     _buildOptionsMenu(
       promptMessage: '~ How would you like to sort?',
       numItems: sortStrategies.length,
       optionBuilder: (idx) => sortStrategies[idx].description,
     );
 
-    var _userChoice = _getUserNumberInput();
+    final _userChoice = _getUserNumberInput();
 
-    final _chosenStrategy = _getSortStrategyFromChoice(_userChoice);
+    final _chosenStrategy = getSortStrategyFromChoice(_userChoice);
 
     return _chosenStrategy ?? _promptUserForSortStrategy();
   }
 
-  INameSortStrategy? _getSortStrategyFromChoice(int userChoice) {
+  ISortStrategy? getSortStrategyFromChoice(int userChoice) {
     try {
       return sortStrategies[userChoice - 1];
     } catch (e) {
@@ -127,7 +127,7 @@ class StdNameSorter implements IApp {
   }
 
   int _getUserNumberInput() {
-    var userResponse = stdin.readLineSync()?.toLowerCase();
+    final userResponse = stdin.readLineSync()?.toLowerCase();
     try {
       var userResponseValue = int.parse(userResponse!);
       return userResponseValue;

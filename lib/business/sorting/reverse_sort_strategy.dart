@@ -1,7 +1,7 @@
 import 'package:name_sort/business/sorting/i_sort_strategy.dart';
 import 'package:name_sort/business/sorting/string_sorting.dart';
 
-class ReverseSortStrategy implements INameSortStrategy {
+class ReverseSortStrategy implements ISortStrategy {
   @override
   String description =
       'Reversed (Sort by largest length, then reverse alphabetical)';

@@ -16,5 +16,5 @@ class StdNameInputStrategy implements INameInputStrategy {
   }
 
   @override
-  String description = 'Standard input';
+  final String description = 'Standard input';
 }

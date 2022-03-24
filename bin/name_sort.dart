@@ -10,17 +10,20 @@ import 'package:name_sort/output/file_output_strategy.dart';
 import 'package:name_sort/output/std_output_strategy.dart';
 
 // Repository For Accessing Names From Text File
-INameRepository _nameRepository = FileNameRepository.asset('Sort Me.txt');
+INameRepository _fileNameRepository = FileNameRepository.asset('Sort Me.txt');
 
 // Initialize Command Line Menu Based Sorting App
 IApp _nameSortingApp = StdNameSorter(
+  inputStrategies: [
+    StdNameInputStrategy(),
+    RepositoryNameInputStrategy(
+      nameRepository: _fileNameRepository,
+      description: 'Data from Sort Me.txt',
+    ),
+  ],
   sortStrategies: [
     NormalSortStrategy(),
     ReverseSortStrategy(),
-  ],
-  inputStrategies: [
-    StdNameInputStrategy(),
-    RepositoryNameInputStrategy(nameRepository: _nameRepository),
   ],
   outputStrategies: [
     StdOutputStrategy(),
