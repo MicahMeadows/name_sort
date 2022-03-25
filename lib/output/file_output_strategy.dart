@@ -18,7 +18,7 @@ class FileOutputStrategy implements IListOutputStrategy {
 
   @override
   void output(List<Object> objects) async {
-    var trackerId = await _createOrUpdateTracker();
+    var trackerId = await _getNewTrackerId();
 
     final fileName = '${fileNamePrefix}_$trackerId';
 
@@ -32,7 +32,7 @@ class FileOutputStrategy implements IListOutputStrategy {
   /// Updates tracker file to keep name ids up to date
   /// If one does not exist it will create one and set
   /// the default id value to 0.
-  Future<int> _createOrUpdateTracker() async {
+  Future<int> _getNewTrackerId() async {
     var trackerId = 0;
     try {
       var trackerFile = await (await File('./bin/results/tracker.json')
