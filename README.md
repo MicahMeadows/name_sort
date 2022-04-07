@@ -1,5 +1,7 @@
 # CSC 499 - Alex Assignments
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/micahmeadows/name_sort)
+![Lines of code](https://img.shields.io/tokei/lines/github/micahmeadows/name_sort)
+![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/micahmeadows/name_sort)
 
 ## Assignment
 Write a command-line based program to sort the contents of a file.
