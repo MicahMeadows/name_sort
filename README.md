@@ -1,4 +1,5 @@
 # CSC 499 - Alex Assignments
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/micahmeadows/name_sort)
 
 ## Assignment
 Write a command-line based program to sort the contents of a file.
@@ -16,6 +17,7 @@ Write a command-line based program to sort the contents of a file.
 - It must be able to sort these names, first by size ascending, second in alphabetical order
 - It must be able to sort these names, first by smallest size, second by reverse alphabetical order
 - It must output a sorted list of names to std out or a file
+- There must be unit tests for the sorting functionality.
 
 ---
 
@@ -24,7 +26,8 @@ Write a command-line based program to sort the contents of a file.
  - Learned how to navigate a linux environment
  - First experience with raw dart
  - Learned how to read and write to files in dart
- - First experience using Markdown
+ - First experience using markdown
+ - First experience using shell scripting
 
  ---
 
@@ -84,7 +87,14 @@ After running the program you will face a few menus.
 
 ---
 
-### __PART 5__ ___(Optional):__ Changing names list_
+### __PART 5:__ _Running tests_
+- in order to run the unit tests first navigate to `/name_sort` directory
+- from inside of this directory, run the command `$ ./run_tests.sh`
+- this will run a shell script that will execute all of the dart tests
+
+---
+
+### __PART 6__ ___(Optional):__ Changing names list_
  - change list of names by either changing contents of 'asset/Sort Me.txt'
    or replacing file and make sure to update the FileRepository path in 'name_sort.dart' 
    if the name of the new file is different. then recompile or re run in dart vm
