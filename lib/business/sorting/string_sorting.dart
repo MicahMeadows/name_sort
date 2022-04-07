@@ -23,9 +23,8 @@ List<String> sortStrings(
     ..sort((a, b) {
       if (ascendingSize) {
         return a.compareTo(b);
-      } else {
-        return b.compareTo(a);
       }
+      return b.compareTo(a);
     });
 
   // sort sub lists in alphabetical order
@@ -33,9 +32,8 @@ List<String> sortStrings(
     lengthGroups[_stringLength]!.sort((a, b) {
       if (subOrderAlphabetical) {
         return a.compareTo(b);
-      } else {
-        return b.compareTo(a);
       }
+      return b.compareTo(a);
     });
   }
 
