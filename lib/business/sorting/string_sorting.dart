@@ -8,6 +8,7 @@ List<String> sortStrings(
   bool ascendingSize = true,
   bool subOrderAlphabetical = true,
 }) {
+  throw Exception('break the code!!!');
   // Group all strings that have the same length into sub lists
   Map<int, List<String>> lengthGroups = {};
   for (var _string in unsortedStrings) {
